@@ -10,7 +10,7 @@ no monthly platform fee. Open `index.html` in a browser and it runs.
 | File            | What it is                                                     |
 |-----------------|----------------------------------------------------------------|
 | `index.html`    | Home — hero, studio, services, process, portfolio, reviews, visit |
-| `book.html`     | Appointments — stylist tiers, services, live Acuity calendar    |
+| `book.html`     | Appointments — stylist tiers and the four-step booking form     |
 | `policies.html` | Full salon policies with sticky section navigation              |
 | `styles.css`    | All styling. Colours and fonts are variables at the top         |
 | `script.js`     | Content lists + the animation engine                            |
@@ -30,22 +30,47 @@ no monthly platform fee. Open `index.html` in a browser and it runs.
 new category by adding a matching `<button class="chip" data-f="yourcat">` in
 the portfolio section of `index.html`. There is no limit on photo count.
 
-## Booking
+## Booking — built into this site
 
-`book.html` embeds the live Acuity scheduler
-(`hairbylauran.as.me/schedule/2bb3c327`) so clients book without leaving the
-site, with a direct link underneath as a fallback.
+`book.html` carries its own four-step booking flow. Nothing is embedded from
+anywhere else and clients never leave the site:
 
-The service list above the calendar is the `CATEGORIES` array in `script.js`.
-Each entry has a `url` that can deep-link to a specific Acuity category — the
-Director Stylist locs maintenance category is already wired up that way. Copy
-the category URL out of Acuity to wire up the rest.
+1. **Service** — generated from the `SERVICES` list at the top of `script.js`
+2. **Stylist** — Director (Laura) / Graduate / no preference
+3. **When** — first and second choice dates, time-of-day preference, hair length
+4. **Details** — name, mobile, email, notes, with a summary of their choices
+
+Every step validates before it will advance, dates can't be set in the past,
+and the final screen makes clear this is a **request**, not a confirmed booking —
+the slot is secured once the deposit is paid.
+
+### Where the requests go
+
+Two routes, both live:
+
+- **Netlify Forms.** The form is marked `data-netlify="true"`, so deploying to
+  Netlify captures every submission automatically — no backend, no code, and
+  email notifications are a toggle in the Netlify dashboard. This is why Netlify
+  is the recommended host.
+- **WhatsApp.** The confirmation screen shows a *Send on WhatsApp* button
+  pre-filled with the client's whole request. This works on any host and matches
+  how the studio already takes enquiries.
+
+Change the WhatsApp destination with `WHATSAPP_NUMBER` in `script.js`.
+
+### What this does not do
+
+It does not show real-time availability or take card payments — both need a
+server and a payment provider, which a static site has neither of. Laura confirms
+the slot and takes the deposit by message, exactly as she does now. If she later
+wants live slots and card deposits on-site, that's a backend build on top of
+this front end.
 
 ## Still to fill in
 
-- **Prices.** Services currently read "See price / at booking" and send clients
-  to the live calendar, because the real prices weren't available when this was
-  built. To show them on the page, edit the `.srv__p` values in `index.html`.
+- **Prices.** Services currently read "See price / at booking" because the real
+  prices weren't available when this was built. To show them on the page, edit
+  the `.srv__p` values in `index.html`.
 - **Reviews.** The three quotes on the home page are placeholders. Replace them
   with real client reviews in the testimonials section of `index.html`.
 - **Instagram handle.** Links currently point at `instagram.com/hairbylauran` —
@@ -68,7 +93,8 @@ Taken from the studio's own booking page, so these are live and correct:
 Built with vanilla JS and CSS — preloader, page-transition curtain, custom
 cursor, masked headline reveals, scroll parallax, pinned service list with
 image sync, count-up stats, magnetic buttons, masonry portfolio with lightbox,
-rotating testimonials and a scroll-spy on the policies page.
+rotating testimonials, a scroll-spy on the policies page, and the animated
+step transitions in the booking form.
 
 Everything respects `prefers-reduced-motion`, so visitors who ask their device
 for less motion get a still, fully readable site.
@@ -78,9 +104,10 @@ for less motion get a still, fully readable site.
 Top of `styles.css`:
 
 ```css
---noir:#0b0a09;   /* background          */
---bone:#f2efe9;   /* text                */
---gold:#c8a46b;   /* accent              */
+--ivory:#fdfaf7;  /* page background     */
+--blush:#f7ece7;  /* soft section bands  */
+--plum:#3d2c33;   /* text                */
+--rose:#c08a7d;   /* accent              */
 --display:"Cormorant Garamond",serif;
 --ui:"Jost",sans-serif;
 ```

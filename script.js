@@ -16,31 +16,22 @@ const GALLERY = [
   { src: "images/laura-outside.jpg",     cat: "studio", alt: "Laura N. outside the studio" },
 ];
 
-/* ── 2. BOOKING CATEGORIES (book.html) ─────────────────────
-   These mirror the categories on the Acuity booking page.
-   `url` can deep-link straight to that category.            */
-const BOOKING_URL = "https://hairbylauran.as.me/schedule/2bb3c327";
-const CATEGORIES = [
-  { tier: "Director Stylist — Laura (D.S.)", name: "Locs Maintenance",
-    desc: "Retwist, palm roll or interlock, cleaned up and styled.",
-    url: BOOKING_URL + "/category/*%2520Locs%2520Maintenance%2520By%2520Laura%2520%2520(D.S.)" },
-  { tier: "Graduate Stylists", name: "Locs Maintenance",
-    desc: "The same maintenance service with the HBL graduate team.",
-    url: BOOKING_URL },
-  { tier: "All stylists", name: "Starter Locs",
-    desc: "Comb coils or two-strand starters, parted to an even grid.",
-    url: BOOKING_URL },
-  { tier: "All stylists", name: "Two-Strand Twists",
-    desc: "A defined protective style for natural hair.",
-    url: BOOKING_URL },
-  { tier: "All stylists", name: "Braids & Cornrows",
-    desc: "Straight-backs, patterns and feed-ins, with or without added hair.",
-    url: BOOKING_URL },
-  { tier: "Add-on or standalone", name: "Wash, Blow-Dry & Removal",
-    desc: "Book alongside your main service or on its own.",
-    url: BOOKING_URL },
+/* ── 2. BOOKING SERVICES (book.html) ───────────────────────
+   These become the choices in step one of the booking form.
+   Add, remove or rename freely — the form rebuilds itself.   */
+const SERVICES = [
+  { name: "Locs Maintenance",        desc: "Retwist, palm roll or interlock, cleaned up and styled." },
+  { name: "Starter Locs",            desc: "Comb coils or two-strand starters, parted to an even grid." },
+  { name: "Two-Strand Twists",       desc: "A defined protective style for natural hair." },
+  { name: "Loc Styling",             desc: "Barrel rolls, pin-ups and braided loc styles." },
+  { name: "Braids & Cornrows",       desc: "Straight-backs, patterns and feed-ins, with or without added hair." },
+  { name: "Wash, Blow-Dry & Removal",desc: "Book alongside your main service or on its own." },
+  { name: "Colour (natural tones)",  desc: "From £20. Please call 07479 412516 before booking colour." },
+  { name: "Not sure yet",            desc: "Describe what you want in the notes and Laura will advise." },
 ];
 
+/* Where appointment requests go if the WhatsApp button is used. */
+const WHATSAPP_NUMBER = "447479412516";
 
 /* ══════════════════════════════════════════════════════════
    ENGINE — no need to edit below this line
@@ -296,19 +287,124 @@ function initQuotes() {
   play();
 }
 
-/* ── Booking categories ──────────────────────────────────── */
-function initCategories() {
-  const el = $("#catList");
-  if (!el) return;
-  el.innerHTML = CATEGORIES.map((c, i) => `
-    <article class="cat__row rv${i < 4 ? " rv-d" + i : ""}">
-      <div>
-        <span class="meta">${c.tier}</span>
-        <h3 class="d4">${c.name}</h3>
-        <p>${c.desc}</p>
-      </div>
-      <a class="btn btn--sm" href="${c.url}" target="_blank" rel="noopener">Select</a>
-    </article>`).join("");
+/* ── Booking flow ────────────────────────────────────────── */
+function initBooking() {
+  const form = $("#bkForm");
+  if (!form) return;
+
+  // Step one options are generated from the SERVICES list above
+  $("#svcOpts").innerHTML = SERVICES.map((sv, i) => `
+    <label class="opt">
+      <input type="radio" name="Service" value="${sv.name}"${i === 0 ? " required" : ""}>
+      <span><b>${sv.name}</b><i>${sv.desc}</i></span>
+    </label>`).join("");
+
+  const panels = $$(".bk__panel", form);
+  const steps  = $$("#bkSteps li");
+  const back   = $("#bkBack"), next = $("#bkNext"), send = $("#bkSend");
+  const LAST   = panels.length - 2;           // last input step (before the "done" panel)
+  let step = 0;
+
+  // Dates: no past days, and none more than a year out
+  const d1 = $("#date1"), d2 = $("#date2");
+  const today = new Date(), max = new Date();
+  max.setFullYear(max.getFullYear() + 1);
+  [d1, d2].forEach(d => { if (d) { d.min = today.toISOString().slice(0, 10); d.max = max.toISOString().slice(0, 10); } });
+
+  const render = () => {
+    panels.forEach((p, i) => p.classList.toggle("is-live", i === step));
+    steps.forEach((s, i) => s.dataset.state = i === step ? "live" : (i < step ? "done" : ""));
+    back.disabled = step === 0;
+    next.hidden   = step >= LAST;
+    send.hidden   = step !== LAST;
+    $("#bkNav").hidden = step > LAST;
+    if (step === LAST) buildSummary();
+    const top = $(".bk").getBoundingClientRect().top + scrollY - 110;
+    if (scrollY > top) scrollTo({ top, behavior: REDUCED ? "auto" : "smooth" });
+  };
+
+  const val = (n) => {
+    const el = form.elements[n];
+    if (!el) return "";
+    return el.length && !el.value ? ([...el].find(r => r.checked) || {}).value || "" : el.value;
+  };
+
+  function buildSummary() {
+    const rows = [
+      ["Service", val("Service")],
+      ["Stylist", val("stylist")],
+      ["First choice", val("First choice date") + (val("Preferred time") ? " · " + val("Preferred time") : "")],
+    ];
+    if (val("Second choice date")) rows.push(["Second choice", val("Second choice date")]);
+    $("#bkSummary").innerHTML = "<dl>" +
+      rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || "—"}</dd>`).join("") + "</dl>";
+  }
+
+  // Validate only the fields on the current panel
+  function validate() {
+    const panel = panels[step];
+    const err = $("#err" + step);
+    if (err) err.textContent = "";
+    $$(".field", panel).forEach(f => f.classList.remove("is-bad"));
+
+    if (step === 0 && !val("Service"))  { err.textContent = "Please choose a service to continue."; return false; }
+    if (step === 1 && !val("stylist"))  { err.textContent = "Please choose a stylist to continue."; return false; }
+
+    let ok = true;
+    $$("input[required], select[required], textarea[required]", panel).forEach(el => {
+      if (el.type === "radio") return;
+      const field = el.closest(".field");
+      const msg = field && $(".err", field);
+      if (!el.checkValidity()) {
+        ok = false;
+        field?.classList.add("is-bad");
+        if (msg) msg.textContent = el.validationMessage;
+      } else if (msg) msg.textContent = "";
+    });
+    if (!ok && err) err.textContent = "Please complete the highlighted fields.";
+    return ok;
+  }
+
+  next.addEventListener("click", () => { if (validate()) { step = Math.min(LAST, step + 1); render(); } });
+  back.addEventListener("click", () => { step = Math.max(0, step - 1); render(); });
+
+  // Jump straight to a stylist when arriving from the tier cards
+  $$('[data-tier]').forEach(a => a.addEventListener("click", () => {
+    const r = [...form.elements.stylist].find(x => x.value === a.dataset.tier);
+    if (r) r.checked = true;
+  }));
+
+  function whatsappMessage() {
+    return encodeURIComponent(
+      "Hi HBL, I'd like to request an appointment.\n\n" +
+      `Service: ${val("Service")}\n` +
+      `Stylist: ${val("stylist")}\n` +
+      `First choice: ${val("First choice date")} ${val("Preferred time")}\n` +
+      (val("Second choice date") ? `Second choice: ${val("Second choice date")}\n` : "") +
+      (val("Hair length") ? `Hair length: ${val("Hair length")}\n` : "") +
+      `\nName: ${val("Name")}\nPhone: ${val("Phone")}\nEmail: ${val("Email")}` +
+      (val("Notes") ? `\n\nNotes: ${val("Notes")}` : "")
+    );
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    $("#waLink").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage()}`;
+    step = LAST + 1;
+    render();
+
+    // Post to the host's form handler (Netlify Forms). If the site is hosted
+    // somewhere without one, the WhatsApp button above is the reliable route.
+    fetch(form.getAttribute("action") || "/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString(),
+    }).catch(() => {});
+  });
+
+  render();
 }
 
 /* ── Policies scroll-spy ─────────────────────────────────── */
@@ -350,7 +446,7 @@ function start() {
   started = true;
   const yr = $("#yr"); if (yr) yr.textContent = new Date().getFullYear();
   initGallery();
-  initCategories();
+  initBooking();
   observeReveals();
   revealMasks();
   initParallax();

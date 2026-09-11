@@ -29,7 +29,7 @@
     <a href="policies.html">Policies</a>
   </nav>
   <div class="nav__end">
-    <a class="btn btn--fill btn--sm" href="#scheduler">Check availability</a>
+    <a class="btn btn--fill btn--sm" href="#booking">Book now</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
@@ -58,7 +58,7 @@
     </h1>
     <p class="lede rv rv-d2" style="margin-top:2rem">Choose your stylist tier, pick your service, and secure the slot with a deposit. Appointments are released on the <b style="color:var(--bone);font-weight:400">10th of each month at 12:00am</b>.</p>
     <div class="hero__cta rv rv-d3">
-      <a class="btn btn--fill" href="#scheduler">Go to live availability</a>
+      <a class="btn btn--fill" href="#booking">Start your booking</a>
       <a class="btn" href="#tiers">Which stylist tier?</a>
     </div>
   </div>
@@ -96,50 +96,161 @@
         <h3 class="d3">Director Stylist</h3>
         <p class="tiny" style="color:var(--gold);margin-bottom:1rem">Laura N. — D.S.</p>
         <p>The founder's chair. Full loc maintenance, starter loc installs and styling, with the longest experience in the studio. Priced above graduate services.</p>
-        <a class="btn btn--fill btn--sm" href="#scheduler" data-cat="director">Book with Laura</a>
+        <a class="btn btn--fill btn--sm" href="#booking" data-tier="Director Stylist — Laura N. (D.S.)">Book with Laura</a>
       </article>
       <article class="tier rv rv-d1">
         <div class="tier__mark">–</div>
         <h3 class="d3">Graduate Stylists</h3>
         <p class="tiny" style="color:var(--gold);margin-bottom:1rem">The HBL team</p>
         <p>Trained in-house to the same standards and supervised on the floor. The same care and finish at a more accessible price point, with wider availability.</p>
-        <a class="btn btn--sm" href="#scheduler" data-cat="graduate">Book with the team</a>
+        <a class="btn btn--sm" href="#booking" data-tier="Graduate Stylist">Book with the team</a>
       </article>
     </div>
   </div>
 </section>
 
-<!-- CATEGORIES -->
-<section class="sec" style="background:var(--noir-2)">
+<!-- BOOKING FLOW -->
+<section class="sec" id="booking" style="background:var(--blush)">
   <div class="wrap">
     <div class="head">
       <p class="kicker rv">Step two</p>
-      <h2 class="d2 rv rv-d1">Pick your<br>service.</h2>
-      <p class="lede rv rv-d2">All prices listed at booking are starting prices and may increase depending on hair length or service requirements.</p>
+      <h2 class="d2 rv rv-d1">Request your<br>appointment.</h2>
+      <p class="lede rv rv-d2">Four short steps. Laura confirms your slot and sends deposit details by message, usually the same day.</p>
     </div>
-    <div class="cat" id="catList"></div>
+
+    <div class="bk rv">
+      <ol class="bk__steps" id="bkSteps">
+        <li data-state="live"><b>01</b>Service</li>
+        <li><b>02</b>Stylist</li>
+        <li><b>03</b>When</li>
+        <li><b>04</b>Details</li>
+      </ol>
+
+      <form class="bk__body" id="bkForm" name="appointment" method="POST"
+            data-netlify="true" netlify-honeypot="company" action="#booking-confirmed" novalidate>
+        <input type="hidden" name="form-name" value="appointment">
+        <p hidden><label>Leave blank <input name="company"></label></p>
+
+        <!-- STEP 1 -->
+        <div class="bk__panel is-live" data-step="0">
+          <h3 class="d3">Which service?</h3>
+          <p class="bk__hint">Not sure which you need? Pick the closest and add a note at the end — Laura will advise.</p>
+          <div class="opts" id="svcOpts"></div>
+          <p class="field err" id="err0"></p>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="bk__panel" data-step="1">
+          <h3 class="d3">Which stylist?</h3>
+          <p class="bk__hint">Pricing varies by stylist level. Director Stylist services are priced differently from Graduate Stylist services.</p>
+          <div class="opts">
+            <label class="opt">
+              <input type="radio" name="stylist" value="Director Stylist — Laura N. (D.S.)" required>
+              <span><b>Director Stylist</b><i>Laura N. — the founder's chair. Longest experience in the studio, priced above graduate services.</i></span>
+            </label>
+            <label class="opt">
+              <input type="radio" name="stylist" value="Graduate Stylist">
+              <span><b>Graduate Stylist</b><i>Trained in-house to the same standards and supervised on the floor. More accessible pricing, wider availability.</i></span>
+            </label>
+            <label class="opt">
+              <input type="radio" name="stylist" value="No preference">
+              <span><b>No preference</b><i>Whoever has the earliest slot that suits my dates.</i></span>
+            </label>
+          </div>
+          <p class="field err" id="err1"></p>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="bk__panel" data-step="2">
+          <h3 class="d3">When suits you?</h3>
+          <p class="bk__hint">The studio is open Tuesday–Friday 9:30–18:00 and Saturday 9:30–16:00. Give a first and second choice so Laura can match you to a free slot.</p>
+          <div class="fields">
+            <div class="field">
+              <label for="date1">First choice date</label>
+              <input type="date" id="date1" name="First choice date" required>
+              <span class="err"></span>
+            </div>
+            <div class="field">
+              <label for="time1">Preferred time</label>
+              <select id="time1" name="Preferred time" required>
+                <option value="">Select…</option>
+                <option>Morning (9:30 – 12:00)</option>
+                <option>Early afternoon (12:00 – 15:00)</option>
+                <option>Late afternoon (15:00 – 18:00)</option>
+                <option>Any time that day</option>
+              </select>
+              <span class="err"></span>
+            </div>
+            <div class="field">
+              <label for="date2">Second choice date <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+              <input type="date" id="date2" name="Second choice date">
+            </div>
+            <div class="field">
+              <label for="length">Current hair length</label>
+              <select id="length" name="Hair length">
+                <option value="">Select…</option>
+                <option>Short — above the ear</option>
+                <option>Medium — chin to shoulder</option>
+                <option>Long — past the shoulder</option>
+                <option>Very long — mid-back or longer</option>
+              </select>
+            </div>
+          </div>
+          <p class="field err" id="err2"></p>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="bk__panel" data-step="3">
+          <h3 class="d3">Your details</h3>
+          <p class="bk__hint">Please double-check these — we're not responsible for missed notifications caused by incorrect contact details.</p>
+          <div class="summary" id="bkSummary"></div>
+          <div class="fields">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="Name" autocomplete="name" required>
+              <span class="err"></span>
+            </div>
+            <div class="field">
+              <label for="phone">Mobile number</label>
+              <input type="tel" id="phone" name="Phone" autocomplete="tel" required>
+              <span class="err"></span>
+            </div>
+            <div class="field field--wide">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="Email" autocomplete="email" required>
+              <span class="err"></span>
+            </div>
+            <div class="field field--wide">
+              <label for="notes">Anything we should know? <span style="text-transform:none;letter-spacing:0">(scalp sensitivities, colour, removal, first visit…)</span></label>
+              <textarea id="notes" name="Notes"></textarea>
+            </div>
+          </div>
+          <div class="notice" style="margin-top:1.75rem">
+            <b>What happens next.</b> This is an appointment <b>request</b>, not a confirmed booking. Laura replies with your price, confirms the slot and sends deposit details. Your appointment is secured once the deposit is paid — deposits are strictly non-refundable and non-transferable.
+          </div>
+          <p class="field err" id="err3"></p>
+        </div>
+
+        <!-- DONE -->
+        <div class="bk__panel" data-step="4">
+          <div class="bk__done">
+            <div class="mark">✓</div>
+            <h3 class="d3">Request sent.</h3>
+            <p class="lede" style="margin:1rem auto 0">Thank you — Laura will be in touch to confirm your slot and deposit. If you'd like a faster reply, send the same details on WhatsApp.</p>
+            <a class="btn btn--fill" id="waLink" href="https://wa.me/447479412516" target="_blank" rel="noopener" style="margin-top:2rem">Send on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="bk__nav" id="bkNav">
+          <button type="button" class="btn" id="bkBack" disabled>Back</button>
+          <button type="button" class="btn btn--fill" id="bkNext">Continue</button>
+          <button type="submit" class="btn btn--fill" id="bkSend" hidden>Send request</button>
+        </div>
+      </form>
+    </div>
+
     <div class="notice rv" style="margin-top:2.5rem">
       <b>Colouring services.</b> Limited to natural tones and starting from £20 — black, honey brown / brown and other primary colours. Please call 07479 412516 before booking any colour, dye or highlight service.
-    </div>
-  </div>
-</section>
-
-<!-- SCHEDULER -->
-<section class="sec" id="scheduler">
-  <div class="wrap">
-    <div class="head">
-      <p class="kicker rv">Step three</p>
-      <h2 class="d2 rv rv-d1">Live availability.</h2>
-      <p class="lede rv rv-d2">Real-time diary and secure deposit payment. If the calendar doesn't load on your device, use the direct link underneath.</p>
-    </div>
-    <div class="embed rv">
-      <iframe title="HBL Hair Studio online booking"
-              src="https://hairbylauran.as.me/schedule/2bb3c327"
-              loading="lazy"></iframe>
-    </div>
-    <div class="rv" style="margin-top:1.75rem;display:flex;gap:.8rem;flex-wrap:wrap">
-      <a class="btn btn--fill" href="https://hairbylauran.as.me/schedule/2bb3c327" target="_blank" rel="noopener">Open the booking page</a>
-      <a class="btn" href="https://wa.me/447479412516" target="_blank" rel="noopener">Ask a question on WhatsApp</a>
     </div>
   </div>
 </section>
@@ -166,7 +277,7 @@
   <div class="wrap">
     <p class="kicker kicker--c rv">Thank you for choosing HAIRBYLAURAN LTD</p>
     <h2 class="d2 rv rv-d1">We look forward to<br>welcoming you.</h2>
-    <a class="btn btn--fill rv rv-d2" href="https://hairbylauran.as.me/schedule/2bb3c327" target="_blank" rel="noopener">Secure your slot</a>
+    <a class="btn btn--fill rv rv-d2" href="#booking">Request your appointment</a>
   </div>
 </section>
 
