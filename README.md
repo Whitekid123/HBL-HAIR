@@ -99,15 +99,26 @@ step transitions in the booking form.
 Everything respects `prefers-reduced-motion`, so visitors who ask their device
 for less motion get a still, fully readable site.
 
+## Contrast
+
+Every piece of text on all three pages was measured against the background it
+actually renders on and meets WCAG AA. Body copy sits at 12.6:1, secondary text
+at 8.4:1, and the rose accent at 5.3:1 — comfortably past the 4.5:1 minimum.
+
+Keep it that way when editing: `--rose-soft` is the pale decorative rose and
+must never be used for text. `--rose` is the text- and button-safe one.
+
 ## Changing the look
 
 Top of `styles.css`:
 
 ```css
---ivory:#fdfaf7;  /* page background     */
---blush:#f7ece7;  /* soft section bands  */
---plum:#3d2c33;   /* text                */
---rose:#c08a7d;   /* accent              */
+--ivory:#fdfaf7;     /* page background                       */
+--blush:#f7ece7;     /* soft section bands                    */
+--plum:#3d2c33;      /* body text        — 12.6:1 on ivory    */
+--plum-soft:#57474e; /* secondary text   —  8.4:1 on ivory    */
+--rose:#95594b;      /* accent + buttons —  5.3:1 either way  */
+--rose-soft:#c08a7d; /* decorative only — never used as text  */
 --display:"Cormorant Garamond",serif;
 --ui:"Jost",sans-serif;
 ```
