@@ -5,8 +5,10 @@ Live photos used on the site. Add new ones here, then register them in the
 
 | File                   | Used for                                  |
 |------------------------|-------------------------------------------|
-| `logo.jpg`             | Favicon                                   |
+| `logo.jpg`             | Dark logo (spare)                         |
 | `studio-front.jpg`     | CTA band, portfolio                       |
+| `studio-front-evening.jpg` | Portfolio                             |
+| `logo-light.jpg`       | Favicon                                   |
 | `laura-outside.jpg`    | Studio section, booking CTA band          |
 | `work-twists-top.jpg`  | Hero background, services, portfolio      |
 | `work-twists-side.jpg` | Services, portfolio                       |
