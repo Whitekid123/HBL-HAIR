@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an Appointment | HBL — Hair By Laura N.</title>
+<meta name="description" content="Book locs maintenance, starter locs, twists and braids at HBL Hair Studio, Northampton. Director and Graduate stylist tiers. Appointments release the 10th of each month.">
+<meta name="theme-color" content="#0b0a09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/logo.jpg">
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+<div class="prog" id="prog"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-d" id="curD"><span>View</span></div>
+
+<header class="nav is-solid" id="nav">
+  <a class="brand" href="index.html"><b>HBL</b><i>Hair By Laura N.</i></a>
+  <nav class="nav__mid">
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#work">Work</a>
+    <a href="book.html" aria-current="page">Book</a>
+    <a href="policies.html">Policies</a>
+  </nav>
+  <div class="nav__end">
+    <a class="btn btn--fill btn--sm" href="#scheduler">Check availability</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="index.html">Home</a>
+  <a href="index.html#services">Services</a>
+  <a href="index.html#work">Work</a>
+  <a href="book.html">Book Now</a>
+  <a href="policies.html">Policies</a>
+  <div class="menu__foot">
+    <span>6 College Street Mews, NN1 2QF</span>
+    <a href="tel:+447479412516">07479 412516</a>
+  </div>
+</div>
+
+<main>
+
+<!-- PAGE HEAD -->
+<section class="sec" style="padding-top:clamp(9rem,18vw,14rem)">
+  <div class="wrap">
+    <p class="kicker rv">Appointments</p>
+    <h1 class="d1">
+      <span class="msk"><span>Book your</span></span>
+      <span class="msk"><span><em class="it">chair</em>.</span></span>
+    </h1>
+    <p class="lede rv rv-d2" style="margin-top:2rem">Choose your stylist tier, pick your service, and secure the slot with a deposit. Appointments are released on the <b style="color:var(--bone);font-weight:400">10th of each month at 12:00am</b>.</p>
+    <div class="hero__cta rv rv-d3">
+      <a class="btn btn--fill" href="#scheduler">Go to live availability</a>
+      <a class="btn" href="#tiers">Which stylist tier?</a>
+    </div>
+  </div>
+</section>
+
+<!-- KEY FACTS -->
+<section class="sec--tight" style="border-block:1px solid var(--line);background:var(--noir-2)">
+  <div class="wrap cards" style="padding-block:clamp(2.5rem,5vw,3.5rem)">
+    <div class="card rv" style="border:0;padding:0">
+      <h3 class="d4">Deposits</h3>
+      <p>Strictly non-refundable and non-transferable. The remaining balance is paid on the day by cash or card — exact cash appreciated.</p>
+    </div>
+    <div class="card rv rv-d1" style="border:0;padding:0">
+      <h3 class="d4">Lateness</h3>
+      <p>Arriving 20 minutes late without prior notice means the appointment is cancelled and marked as a no-show. Emergency appointments carry a £50 fee.</p>
+    </div>
+    <div class="card rv rv-d2" style="border:0;padding:0">
+      <h3 class="d4">Enquiries</h3>
+      <p>For appointment questions, message us on Instagram or WhatsApp. For colour, dye or highlights, call <a class="ln" href="tel:+447479412516" style="letter-spacing:.1em">07479 412516</a> before booking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STYLIST TIERS -->
+<section class="sec" id="tiers">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Step one</p>
+      <h2 class="d2 rv rv-d1">Choose your<br>stylist tier.</h2>
+      <p class="lede rv rv-d2">Pricing varies depending on the stylist level selected. Please make sure you're booking the correct tier before confirming — bookings on the wrong tier may need to be rearranged.</p>
+    </div>
+    <div class="tiers">
+      <article class="tier rv">
+        <div class="tier__mark">✱</div>
+        <h3 class="d3">Director Stylist</h3>
+        <p class="tiny" style="color:var(--gold);margin-bottom:1rem">Laura N. — D.S.</p>
+        <p>The founder's chair. Full loc maintenance, starter loc installs and styling, with the longest experience in the studio. Priced above graduate services.</p>
+        <a class="btn btn--fill btn--sm" href="#scheduler" data-cat="director">Book with Laura</a>
+      </article>
+      <article class="tier rv rv-d1">
+        <div class="tier__mark">–</div>
+        <h3 class="d3">Graduate Stylists</h3>
+        <p class="tiny" style="color:var(--gold);margin-bottom:1rem">The HBL team</p>
+        <p>Trained in-house to the same standards and supervised on the floor. The same care and finish at a more accessible price point, with wider availability.</p>
+        <a class="btn btn--sm" href="#scheduler" data-cat="graduate">Book with the team</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="sec" style="background:var(--noir-2)">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Step two</p>
+      <h2 class="d2 rv rv-d1">Pick your<br>service.</h2>
+      <p class="lede rv rv-d2">All prices listed at booking are starting prices and may increase depending on hair length or service requirements.</p>
+    </div>
+    <div class="cat" id="catList"></div>
+    <div class="notice rv" style="margin-top:2.5rem">
+      <b>Colouring services.</b> Limited to natural tones and starting from £20 — black, honey brown / brown and other primary colours. Please call 07479 412516 before booking any colour, dye or highlight service.
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULER -->
+<section class="sec" id="scheduler">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Step three</p>
+      <h2 class="d2 rv rv-d1">Live availability.</h2>
+      <p class="lede rv rv-d2">Real-time diary and secure deposit payment. If the calendar doesn't load on your device, use the direct link underneath.</p>
+    </div>
+    <div class="embed rv">
+      <iframe title="HBL Hair Studio online booking"
+              src="https://hairbylauran.as.me/schedule/2bb3c327"
+              loading="lazy"></iframe>
+    </div>
+    <div class="rv" style="margin-top:1.75rem;display:flex;gap:.8rem;flex-wrap:wrap">
+      <a class="btn btn--fill" href="https://hairbylauran.as.me/schedule/2bb3c327" target="_blank" rel="noopener">Open the booking page</a>
+      <a class="btn" href="https://wa.me/447479412516" target="_blank" rel="noopener">Ask a question on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- PREPARE -->
+<section class="sec" style="background:var(--noir-2)">
+  <div class="wrap">
+    <div class="head"><p class="kicker rv">Before you arrive</p><h2 class="d2 rv rv-d1">Come prepared.</h2></div>
+    <div class="acc">
+      <details class="rv"><summary>How should my hair be when I arrive?</summary><div class="body"><p>Wash, blow-dry and removal services are available at the studio if you need them — add them when booking. Please tell us in advance about any scalp sensitivities or special requirements so suitable measures can be taken.</p></div></details>
+      <details class="rv"><summary>How far in advance can I book?</summary><div class="body"><p>Appointments are released on the 10th of each month at 12:00am. Saturday slots and Director Stylist times go quickly, so set a reminder.</p></div></details>
+      <details class="rv"><summary>Can I bring someone with me?</summary><div class="body"><p>No plus ones are permitted during appointments. The studio is a small space and the chair works best without an audience.</p></div></details>
+      <details class="rv"><summary>Where do I park?</summary><div class="body"><p>NCP Northampton St Peters Way, 8 St Peter's Way, NN1 1TP — about a 5-minute walk and free for 1.5 hours. SOL Central Car Park, St Mary's St, NN1 2RL — about 3 minutes. Mayorhold Shoppers' Multi-Storey, Lady's Lane, NN1 2DL / NN1 3AH — about 5 minutes. Please allow enough time for travel and parking.</p></div></details>
+      <details class="rv"><summary>What if I'm unwell?</summary><div class="body"><p>Please let us know at least 48 hours before your appointment. Clients displaying flu-like symptoms may be refused service for health and safety reasons. Eligible deposits may be refunded in these circumstances.</p></div></details>
+      <details class="rv"><summary>What if I'm not happy with my service?</summary><div class="body"><p>Customer satisfaction matters to us. Please notify us during your appointment or within 48 hours of your visit. Aftercare advice is provided following your service and clients are responsible for following the recommended maintenance guidance. Touch-up services may be offered where appropriate; refunds, redos or correction services are not available after 3 days from the original appointment date.</p></div></details>
+    </div>
+    <p class="rv" style="margin-top:2.5rem"><a class="ln" href="policies.html">Read the full salon policies</a></p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="band">
+  <div class="band__bg" data-parallax="0.12"><img src="images/laura-outside.jpg" alt=""></div>
+  <div class="wrap">
+    <p class="kicker kicker--c rv">Thank you for choosing HAIRBYLAURAN LTD</p>
+    <h2 class="d2 rv rv-d1">We look forward to<br>welcoming you.</h2>
+    <a class="btn btn--fill rv rv-d2" href="https://hairbylauran.as.me/schedule/2bb3c327" target="_blank" rel="noopener">Secure your slot</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__grid">
+    <div>
+      <a class="brand" href="index.html" style="margin-bottom:1.5rem"><b>HBL</b><i>Hair By Laura N.</i></a>
+      <p style="max-width:32ch;font-size:.88rem">Your hair is your personality. A loc specialist studio in the heart of Northampton.</p>
+    </div>
+    <div><h4>Explore</h4><ul>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="book.html">Book Now</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul></div>
+    <div><h4>Visit</h4><address>6 College Street Mews<br>Northampton<br>NN1 2QF</address></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="tel:+447479412516">07479 412516</a></li>
+      <li><a href="https://wa.me/447479412516" target="_blank" rel="noopener">WhatsApp (message only)</a></li>
+      <li><a href="https://instagram.com/hairbylauran" target="_blank" rel="noopener">Instagram</a></li>
+    </ul></div>
+  </div>
+  <div class="foot__bar">
+    <p>&copy; <span id="yr"></span> HAIRBYLAURAN LTD</p>
+    <p>Northampton, United Kingdom</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

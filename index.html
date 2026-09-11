@@ -1,252 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HBL Hair Studio — Locs, Twists & Braids</title>
-<meta name="description" content="HBL Hair Studio — a specialist textured hair studio. Starter locs, retwists, two-strand twists, braids and barbering. Book your appointment today.">
-<meta property="og:title" content="HBL Hair Studio">
-<meta property="og:description" content="Specialist textured hair studio — locs, twists, braids and barbering.">
-<meta property="og:image" content="images/hero.jpg">
+<title>HBL — Hair By Laura N. | Loc Specialist Studio, Northampton</title>
+<meta name="description" content="HBL Hair Studio, 6 College Street Mews, Northampton. Loc maintenance, starter locs, twists and braids by Laura N. and the HBL graduate stylists. Book online.">
+<meta property="og:title" content="HBL — Hair By Laura N.">
+<meta property="og:description" content="Loc specialist studio in Northampton. Your hair is your personality.">
+<meta property="og:image" content="images/work-twists-top.jpg">
+<meta name="theme-color" content="#0b0a09">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script>
-/* Placeholder swap for photos not added yet. Inline in head so it also
-   catches images that finish loading before script.js runs. */
-window.HBL_PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">' +
-  '<rect width="400" height="500" fill="#ece4d9"/>' +
-  '<text x="200" y="244" text-anchor="middle" fill="#c08b52" font-family="Georgia,serif" font-size="30">HBL</text>' +
-  '<text x="200" y="276" text-anchor="middle" fill="#8a8079" font-family="Helvetica,sans-serif" font-size="12" letter-spacing="2">PHOTO COMING SOON</text></svg>');
-document.addEventListener("error", function (e) {
-  var el = e.target;
-  if (el.tagName === "IMG" && el.src !== window.HBL_PLACEHOLDER) el.src = window.HBL_PLACEHOLDER;
-}, true);
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/logo.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HairSalon","name":"HBL Hair Studio — Hair By Laura N.",
+"image":"images/studio-front.jpg","telephone":"+447479412516",
+"address":{"@type":"PostalAddress","streetAddress":"6 College Street Mews","addressLocality":"Northampton","postalCode":"NN1 2QF","addressCountry":"GB"},
+"openingHoursSpecification":[
+ {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"09:30","closes":"18:00"},
+ {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:30","closes":"16:00"}],
+"priceRange":"££","slogan":"Your hair is your personality"}
+</script>
 </head>
 <body>
 
-<header class="nav" id="nav">
-  <a class="nav__logo" href="#top">HBL<span>Hair Studio</span></a>
-  <nav class="nav__links">
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQ</a>
-    <a href="#visit">Visit</a>
-  </nav>
-  <a class="btn btn--pill" href="#book">Book now</a>
-  <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
-</header>
-
-<div class="drawer" id="drawer">
-  <a href="#services">Services</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#about">About</a>
-  <a href="#faq">FAQ</a>
-  <a href="#visit">Visit</a>
-  <a class="btn btn--pill" href="#book">Book now</a>
+<!-- PRELOADER -->
+<div class="pre" id="pre">
+  <div class="pre__logo">HBL</div>
+  <div class="pre__sub">Hair By Laura N.</div>
+  <div class="pre__bar"><i id="preBar"></i></div>
+  <div class="pre__pct" id="prePct">0</div>
 </div>
 
-<main id="top">
+<div class="curtain" id="curtain"></div>
+<div class="prog" id="prog"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-d" id="curD"><span>View</span></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__copy reveal">
-      <p class="eyebrow">Textured hair specialists</p>
-      <h1>Hair that <em>holds</em><br>its shape.</h1>
-      <p class="lede">Starter locs, retwists, two-strand twists and braids — installed with clean parting, healthy tension and a finish built to last weeks, not days.</p>
-      <div class="hero__cta">
-        <a class="btn btn--solid" href="#book">Book an appointment</a>
-        <a class="btn btn--ghost" href="#gallery">See the work</a>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a class="brand" href="index.html"><b>HBL</b><i>Hair By Laura N.</i></a>
+  <nav class="nav__mid">
+    <a href="index.html" aria-current="page">Home</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#studio">Studio</a>
+    <a href="policies.html">Policies</a>
+  </nav>
+  <div class="nav__end">
+    <a class="btn btn--fill btn--sm" href="book.html">Book Now</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="index.html">Home</a>
+  <a href="#services">Services</a>
+  <a href="#work">Work</a>
+  <a href="#studio">Studio</a>
+  <a href="book.html">Book Now</a>
+  <a href="policies.html">Policies</a>
+  <div class="menu__foot">
+    <span>6 College Street Mews, NN1 2QF</span>
+    <a href="tel:+447479412516">07479 412516</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__bg" data-parallax="0.18"><img src="images/work-twists-top.jpg" alt="Freshly installed two-strand twists at HBL Hair Studio"></div>
+  <div class="hero__in">
+    <p class="kicker rv">Northampton · Est. Hair By Laura N.</p>
+    <h1 class="d1">
+      <span class="msk"><span>Your hair is</span></span>
+      <span class="msk"><span>your <em class="it">personality</em>.</span></span>
+    </h1>
+    <div class="hero__row">
+      <div>
+        <p class="lede rv rv-d2">A loc specialist studio built on clean parting, healthy tension and finishes that hold. Starter locs, maintenance, twists and braids — by Laura N. and the HBL graduate team.</p>
+        <div class="hero__cta rv rv-d3">
+          <a class="btn btn--fill" href="book.html">Book an appointment</a>
+          <a class="btn" href="#work">See the work</a>
+        </div>
       </div>
-      <ul class="hero__stats">
-        <li><strong>10+</strong><span>Years styling</span></li>
-        <li><strong>4.9</strong><span>Client rating</span></li>
-        <li><strong>All</strong><span>Hair textures</span></li>
-      </ul>
-    </div>
-    <div class="hero__media reveal">
-      <img src="images/hero.jpg" alt="Freshly installed two-strand twists at HBL Hair Studio" loading="eager">
-      <div class="hero__badge"><span>Walk-ins</span><em>Mon – Sat</em></div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>Starter Locs</span><i>✦</i><span>Retwist</span><i>✦</i><span>Two-Strand Twists</span><i>✦</i><span>Loc Styling</span><i>✦</i><span>Cornrows</span><i>✦</i><span>Box Braids</span><i>✦</i><span>Barbering</span><i>✦</i>
-      <span>Starter Locs</span><i>✦</i><span>Retwist</span><i>✦</i><span>Two-Strand Twists</span><i>✦</i><span>Loc Styling</span><i>✦</i><span>Cornrows</span><i>✦</i><span>Box Braids</span><i>✦</i><span>Barbering</span><i>✦</i>
+      <div class="hero__aside rv rv-d4">
+        <p class="tiny">Appointments release the<br>10th of each month, 12:00am</p>
+      </div>
     </div>
   </div>
+  <div class="scrollcue"><span>Scroll</span><i></i></div>
+</section>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about__media reveal">
-      <img src="images/studio.jpg" alt="The HBL Hair Studio shopfront">
-    </div>
-    <div class="about__copy reveal">
-      <p class="eyebrow">The studio</p>
-      <h2>A calm chair, an unhurried finish.</h2>
-      <p>HBL Hair Studio is a small, appointment-led space built around textured hair. No conveyor belt, no rushing the parting — one client in the chair at a time, with the time your hair actually needs.</p>
-      <p>Whether you're starting your loc journey, keeping a mature set tidy, or want a protective style that survives the working week, you'll leave with something clean, comfortable and photographed before you go.</p>
-      <ul class="ticks">
+<!-- MARQUEE -->
+<div class="mq" aria-hidden="true">
+  <div class="mq__t">
+    <span>Starter Locs</span><em>✦</em><span>Loc Maintenance</span><em>✦</em><span>Retwist</span><em>✦</em><span>Two-Strand Twists</span><em>✦</em><span>Loc Styling</span><em>✦</em><span>Braids</span><em>✦</em><span>Wash &amp; Blow-Dry</span><em>✦</em>
+    <span>Starter Locs</span><em>✦</em><span>Loc Maintenance</span><em>✦</em><span>Retwist</span><em>✦</em><span>Two-Strand Twists</span><em>✦</em><span>Loc Styling</span><em>✦</em><span>Braids</span><em>✦</em><span>Wash &amp; Blow-Dry</span><em>✦</em>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="studio">
+  <div class="wrap split">
+    <figure class="split__fig rv" style="margin:0">
+      <img class="plx" src="images/laura-outside.jpg" alt="Laura outside HBL Hair Studio" data-parallax="0.07">
+      <figcaption class="tag"><b>Laura N.</b><i>Director Stylist</i></figcaption>
+    </figure>
+    <div>
+      <p class="kicker rv">The Studio</p>
+      <h2 class="d2 rv rv-d1">A chair that<br><em class="it">isn't rushed</em>.</h2>
+      <p class="lede rv rv-d2">HBL is a small appointment-led studio on College Street Mews, built around textured hair and locs in particular. One client in the chair, the time your hair actually needs, and honest advice about what will still look good in six weeks.</p>
+      <p class="rv rv-d2">Whether you're starting your loc journey, keeping a mature set tidy, or want a protective style that survives the working week — you'll leave with something clean, comfortable, and worth photographing.</p>
+      <ul class="ticks rv rv-d3">
         <li>Scalp-first approach — no painful tension</li>
-        <li>Honest advice on what suits your hair</li>
-        <li>Aftercare guidance with every appointment</li>
+        <li>Director and Graduate stylist tiers, priced accordingly</li>
+        <li>Aftercare guidance provided with every service</li>
+        <li>Fully insured business</li>
       </ul>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="section-head reveal">
-      <p class="eyebrow">Services</p>
-      <h2>What we do</h2>
-      <p class="lede">Prices are a starting point — length, density and style detail can change the final quote. Message us with a photo for an exact price.</p>
-    </div>
-
-    <div class="svc">
-      <article class="svc__row reveal">
-        <div class="svc__n">01</div>
-        <div class="svc__body"><h3>Starter Locs</h3><p>Comb coils or two-strand starters, parted to a grid that grows out evenly.</p></div>
-        <div class="svc__meta"><span>From £65</span><em>2–3 hrs</em></div>
-      </article>
-      <article class="svc__row reveal">
-        <div class="svc__n">02</div>
-        <div class="svc__body"><h3>Loc Retwist &amp; Style</h3><p>Root maintenance, palm roll or interlock, finished with a style of your choice.</p></div>
-        <div class="svc__meta"><span>From £45</span><em>1.5–2 hrs</em></div>
-      </article>
-      <article class="svc__row reveal">
-        <div class="svc__n">03</div>
-        <div class="svc__body"><h3>Two-Strand Twists</h3><p>Natural hair twists with defined parting — a clean protective style for 2–3 weeks.</p></div>
-        <div class="svc__meta"><span>From £40</span><em>1.5–2.5 hrs</em></div>
-      </article>
-      <article class="svc__row reveal">
-        <div class="svc__n">04</div>
-        <div class="svc__body"><h3>Cornrows &amp; Feed-ins</h3><p>Straight-backs or patterned designs, with or without added hair.</p></div>
-        <div class="svc__meta"><span>From £35</span><em>1–3 hrs</em></div>
-      </article>
-      <article class="svc__row reveal">
-        <div class="svc__n">05</div>
-        <div class="svc__body"><h3>Box Braids &amp; Knotless</h3><p>Small, medium or jumbo — priced by size and length.</p></div>
-        <div class="svc__meta"><span>From £80</span><em>3–6 hrs</em></div>
-      </article>
-      <article class="svc__row reveal">
-        <div class="svc__n">06</div>
-        <div class="svc__body"><h3>Cuts &amp; Barbering</h3><p>Skin fades, line-ups and shape-ups, finished around locs and braids.</p></div>
-        <div class="svc__meta"><span>From £20</span><em>30–45 min</em></div>
-      </article>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="gallery" id="gallery">
-    <div class="section-head reveal">
-      <p class="eyebrow">Gallery</p>
-      <h2>Recent work</h2>
-      <p class="lede">A look at what leaves the chair. Tap any photo to view it larger.</p>
-    </div>
-    <div class="filters reveal" id="filters">
-      <button class="chip is-active" data-filter="all">All</button>
-      <button class="chip" data-filter="locs">Locs</button>
-      <button class="chip" data-filter="twists">Twists</button>
-      <button class="chip" data-filter="braids">Braids</button>
-      <button class="chip" data-filter="studio">Studio</button>
-    </div>
-    <div class="grid" id="grid"><!-- filled from script.js --></div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="quotes">
-    <div class="section-head reveal">
-      <p class="eyebrow">Kind words</p>
-      <h2>From the chair</h2>
-    </div>
-    <div class="quotes__grid">
-      <figure class="quote reveal">
-        <blockquote>“First time getting my locs started and she talked me through every step. Three months on and they're still sitting perfectly.”</blockquote>
-        <figcaption>Daniel O. <span>Starter locs</span></figcaption>
-      </figure>
-      <figure class="quote reveal">
-        <blockquote>“No pulling, no headache after. That alone made me switch. The parting is unreal.”</blockquote>
-        <figcaption>Amara K. <span>Cornrows</span></figcaption>
-      </figure>
-      <figure class="quote reveal">
-        <blockquote>“Took my son in for twists and a line-up — he hasn't stopped looking in the mirror since.”</blockquote>
-        <figcaption>Marcus B. <span>Twists &amp; barbering</span></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="faq" id="faq">
-    <div class="section-head reveal">
-      <p class="eyebrow">FAQ</p>
-      <h2>Good to know</h2>
-    </div>
-    <div class="acc">
-      <details class="reveal"><summary>How should I come in for my appointment?</summary><p>Clean, fully dried and detangled hair unless you've booked a wash with your service. For a retwist, come with roots free of heavy product build-up.</p></details>
-      <details class="reveal"><summary>Do you take walk-ins?</summary><p>Where the diary allows, yes — but appointments always take priority. Message ahead if you can, especially for anything over two hours.</p></details>
-      <details class="reveal"><summary>Do I need to bring my own hair?</summary><p>For braids and feed-ins, bring your preferred brand and colour if you have one. If not, tell us in advance and we'll source it for you.</p></details>
-      <details class="reveal"><summary>How long will my style last?</summary><p>Twists sit well for 2–3 weeks, braids 6–8 weeks, and a retwist typically runs 4–6 weeks depending on your hair and how you wrap it at night.</p></details>
-      <details class="reveal"><summary>What's your cancellation policy?</summary><p>Please give at least 24 hours' notice. Repeated no-shows may need a deposit to rebook.</p></details>
-    </div>
-  </section>
-
-  <!-- BOOK / VISIT -->
-  <section class="book" id="book">
-    <div class="book__panel reveal">
-      <p class="eyebrow">Booking</p>
-      <h2>Ready for your appointment?</h2>
-      <p class="lede">Send a message with the style you want, your hair length and a couple of dates that work. You'll get a price and a slot back the same day.</p>
-      <div class="book__actions">
-        <!-- REPLACE: phone number, WhatsApp number and Instagram handle -->
-        <a class="btn btn--solid" href="tel:+440000000000">Call the studio</a>
-        <a class="btn btn--ghost" href="https://wa.me/440000000000">WhatsApp</a>
-        <a class="btn btn--ghost" href="https://instagram.com/">Instagram DM</a>
+      <div class="stats rv rv-d4">
+        <div><b data-count="48">0</b><span>Hours booked monthly</span></div>
+        <div><b data-count="3" data-suffix="+">0</b><span>Stylists on the floor</span></div>
+        <div><b data-count="100" data-suffix="%">0</b><span>Textured hair focus</span></div>
       </div>
     </div>
-    <div class="book__info reveal" id="visit">
-      <div class="info__block">
-        <h3>Opening hours</h3>
-        <ul class="hours">
-          <li><span>Mon – Fri</span><em>9:00 — 19:00</em></li>
-          <li><span>Saturday</span><em>9:00 — 18:00</em></li>
-          <li><span>Sunday</span><em>Closed</em></li>
+  </div>
+</section>
+
+<!-- SERVICES (pinned) -->
+<section class="sec" id="services" style="background:var(--noir-2)">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Services</p>
+      <h2 class="d2 rv rv-d1">What leaves<br>the chair.</h2>
+      <p class="lede rv rv-d2">All prices are starting prices and may increase with hair length or service requirements. Director Stylist services are priced differently from Graduate Stylist services — live prices are shown at booking.</p>
+    </div>
+    <div class="pin">
+      <div class="pin__media" id="pinMedia">
+        <img src="images/work-twists-top.jpg" alt="Starter locs" class="is-live">
+        <img src="images/work-loc-braids.jpg" alt="Loc maintenance and retwist">
+        <img src="images/work-twists-side.jpg" alt="Two-strand twists">
+        <img src="images/work-loc-braids.jpg" alt="Loc styling">
+        <img src="images/work-twists-side.jpg" alt="Braids">
+        <img src="images/studio-front.jpg" alt="Wash, blow-dry and removal">
+      </div>
+      <div class="srv" id="srvList">
+        <article class="srv__row is-live" data-i="0">
+          <span class="srv__n">01</span>
+          <div><h3 class="d4">Starter Locs</h3><p>Comb coils or two-strand starters, parted to a grid that grows out evenly.</p></div>
+          <div class="srv__p">See price<em>At booking</em></div>
+        </article>
+        <article class="srv__row" data-i="1">
+          <span class="srv__n">02</span>
+          <div><h3 class="d4">Locs Maintenance</h3><p>Root maintenance, palm roll or interlock, finished and styled. Director or Graduate tier.</p></div>
+          <div class="srv__p">See price<em>At booking</em></div>
+        </article>
+        <article class="srv__row" data-i="2">
+          <span class="srv__n">03</span>
+          <div><h3 class="d4">Two-Strand Twists</h3><p>Defined parting and a clean protective finish for natural hair.</p></div>
+          <div class="srv__p">See price<em>At booking</em></div>
+        </article>
+        <article class="srv__row" data-i="3">
+          <span class="srv__n">04</span>
+          <div><h3 class="d4">Loc Styling</h3><p>Barrel rolls, pin-ups and braided loc styles for events or everyday.</p></div>
+          <div class="srv__p">See price<em>At booking</em></div>
+        </article>
+        <article class="srv__row" data-i="4">
+          <span class="srv__n">05</span>
+          <div><h3 class="d4">Braids &amp; Cornrows</h3><p>Straight-backs, patterned designs and feed-ins, with or without added hair.</p></div>
+          <div class="srv__p">See price<em>At booking</em></div>
+        </article>
+        <article class="srv__row" data-i="5">
+          <span class="srv__n">06</span>
+          <div><h3 class="d4">Wash, Blow-Dry &amp; Removal</h3><p>Available as add-ons or standalone. Colour in natural tones from £20.</p></div>
+          <div class="srv__p">From £20<em>Colour</em></div>
+        </article>
+      </div>
+    </div>
+    <div class="rv" style="margin-top:3rem"><a class="btn btn--fill" href="book.html">View full service list &amp; book</a></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec sec--tight">
+  <div class="wrap head head--c">
+    <p class="kicker kicker--c rv">How it works</p>
+    <h2 class="d2 rv rv-d1">Four steps<br>to the chair.</h2>
+  </div>
+  <div class="rail">
+    <article class="step rv"><b>01</b><h3 class="d4">Appointments release</h3><p>Slots open on the 10th of each month at 12:00am. Popular Saturday times go first.</p></article>
+    <article class="step rv rv-d1"><b>02</b><h3 class="d4">Pick your stylist tier</h3><p>Director Stylist (Laura) or Graduate Stylist. Pricing differs — make sure you book the right tier.</p></article>
+    <article class="step rv rv-d2"><b>03</b><h3 class="d4">Secure with a deposit</h3><p>Deposits are strictly non-refundable and non-transferable. The balance is paid on the day by cash or card.</p></article>
+    <article class="step rv rv-d3"><b>04</b><h3 class="d4">Arrive prepared</h3><p>Allow time for parking. Tell us in advance about scalp sensitivities. Punctuality is essential.</p></article>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec" id="work" style="background:var(--noir-2)">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Portfolio</p>
+      <h2 class="d2 rv rv-d1">Recent work.</h2>
+      <p class="lede rv rv-d2">Straight from the studio floor. Tap any image to view it full size.</p>
+    </div>
+    <div class="chips rv" id="chips">
+      <button class="chip" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="locs" aria-pressed="false">Locs</button>
+      <button class="chip" data-f="twists" aria-pressed="false">Twists</button>
+      <button class="chip" data-f="studio" aria-pressed="false">Studio</button>
+    </div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head head--c"><p class="kicker kicker--c rv">Kind words</p></div>
+    <div class="qs rv" id="qs">
+      <figure class="q is-live"><blockquote>“First time getting my locs started and she talked me through every step. Months on and they're still sitting perfectly.”</blockquote><cite>Daniel O.<span>Starter Locs</span></cite></figure>
+      <figure class="q"><blockquote>“No pulling, no headache afterwards. That alone made me switch. The parting is unreal.”</blockquote><cite>Amara K.<span>Loc Maintenance</span></cite></figure>
+      <figure class="q"><blockquote>“Took my son in for twists and he hasn't stopped looking in the mirror since.”</blockquote><cite>Marcus B.<span>Two-Strand Twists</span></cite></figure>
+    </div>
+    <div class="qnav" id="qnav"></div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="band">
+  <div class="band__bg" data-parallax="0.12"><img src="images/studio-front.jpg" alt=""></div>
+  <div class="wrap">
+    <p class="kicker kicker--c rv">6 College Street Mews · NN1 2QF</p>
+    <h2 class="d2 rv rv-d1">Ready when<br>you are.</h2>
+    <a class="btn btn--fill rv rv-d2" href="book.html">Book your appointment</a>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="head"><p class="kicker rv">Visit</p><h2 class="d2 rv rv-d1">Find the studio.</h2></div>
+    <div class="cards">
+      <div class="card rv">
+        <h3 class="d4">Opening hours</h3>
+        <ul class="rows">
+          <li><span>Tuesday – Friday</span><b>9:30 — 18:00</b></li>
+          <li><span>Saturday</span><b>9:30 — 16:00</b></li>
+          <li class="off"><span>Sunday &amp; Monday</span><b>Closed</b></li>
         </ul>
       </div>
-      <div class="info__block">
-        <h3>Find us</h3>
-        <!-- REPLACE: full street address -->
-        <p>HBL Hair Studio<br>Add your street address here<br>Town, Postcode</p>
-        <a class="link-arrow" href="https://maps.google.com/?q=HBL+Hair+Studio">Open in Maps →</a>
+      <div class="card rv rv-d1">
+        <h3 class="d4">Address</h3>
+        <p>HBL Hair Studio<br>6 College Street Mews<br>Northampton, NN1 2QF</p>
+        <a class="ln" href="https://maps.google.com/?q=6+College+Street+Mews+Northampton+NN1+2QF" target="_blank" rel="noopener">Open in Maps</a>
+      </div>
+      <div class="card rv rv-d2">
+        <h3 class="d4">Parking</h3>
+        <p>NCP St Peter's Way, NN1 1TP — 5 min walk, free for 1.5 hrs.<br>SOL Central, NN1 2RL — 3 min walk.<br>Mayorhold Multi-Storey, NN1 2DL — 5 min walk.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
 <footer class="foot">
-  <div class="foot__top">
-    <a class="nav__logo" href="#top">HBL<span>Hair Studio</span></a>
-    <nav class="foot__links">
-      <a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#faq">FAQ</a><a href="#book">Book</a>
-    </nav>
+  <div class="foot__grid">
+    <div>
+      <a class="brand" href="index.html" style="margin-bottom:1.5rem"><b>HBL</b><i>Hair By Laura N.</i></a>
+      <p style="max-width:32ch;font-size:.88rem">Your hair is your personality. A loc specialist studio in the heart of Northampton.</p>
+    </div>
+    <div><h4>Explore</h4><ul>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="book.html">Book Now</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul></div>
+    <div><h4>Visit</h4><address>6 College Street Mews<br>Northampton<br>NN1 2QF</address></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="tel:+447479412516">07479 412516</a></li>
+      <li><a href="https://wa.me/447479412516" target="_blank" rel="noopener">WhatsApp (message only)</a></li>
+      <li><a href="https://instagram.com/hairbylauran" target="_blank" rel="noopener">Instagram</a></li>
+    </ul></div>
   </div>
   <div class="foot__bar">
-    <p>&copy; <span id="year"></span> HBL Hair Studio. All rights reserved.</p>
-    <p>Textured hair specialists</p>
+    <p>&copy; <span id="yr"></span> HAIRBYLAURAN LTD</p>
+    <p>Northampton, United Kingdom</p>
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
-  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Previous">‹</button>
-  <img id="lbImg" alt="">
-  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Next">›</button>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb__x" id="lbX" aria-label="Close">✕</button>
+  <button class="lb__a lb__a--p" id="lbP" aria-label="Previous">‹</button>
+  <img id="lbI" alt="">
+  <button class="lb__a lb__a--n" id="lbN" aria-label="Next">›</button>
+  <div class="lb__cap" id="lbC"></div>
 </div>
 
 <script src="script.js"></script>

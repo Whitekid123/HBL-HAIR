@@ -1,20 +1,18 @@
 # Photos
 
-Drop your image files in this folder, then add one line per photo to the
+Live photos used on the site. Add new ones here, then register them in the
 `GALLERY` list at the top of `../script.js`.
 
-## Named files the page expects
-
-| File             | Used for                                    |
-|------------------|---------------------------------------------|
-| `hero.jpg`       | Big photo in the hero, portrait 4:5          |
-| `studio.jpg`     | About section, portrait 3:4 (shopfront)      |
-| `gallery-01.jpg` … | Gallery grid, portrait 4:5 works best      |
-
-Any photo that isn't there yet shows a tidy "photo coming soon" tile
-instead of a broken image, so the site never looks unfinished.
+| File                   | Used for                                  |
+|------------------------|-------------------------------------------|
+| `logo.jpg`             | Favicon                                   |
+| `studio-front.jpg`     | CTA band, portfolio                       |
+| `laura-outside.jpg`    | Studio section, booking CTA band          |
+| `work-twists-top.jpg`  | Hero background, services, portfolio      |
+| `work-twists-side.jpg` | Services, portfolio                       |
+| `work-loc-braids.jpg`  | Services, portfolio                       |
 
 ## Tips
-- Resize to about 1200px on the long edge and save as JPEG ~80% quality.
-- Keep filenames lowercase with no spaces.
-- Categories for the filter chips: `locs`, `twists`, `braids`, `studio`.
+- Resize to about 1600px on the long edge, JPEG ~80% quality.
+- Lowercase filenames, no spaces.
+- Portrait shots work best in the masonry portfolio.
