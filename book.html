@@ -23,7 +23,7 @@
   <a class="brand" href="index.html"><b>HBL</b><i>Hair By Laura N.</i></a>
   <nav class="nav__mid">
     <a href="index.html">Home</a>
-    <a href="index.html#services">Services</a>
+    <a href="services.html">Prices</a>
     <a href="index.html#work">Work</a>
     <a href="book.html" aria-current="page">Book</a>
     <a href="policies.html">Policies</a>
@@ -36,7 +36,7 @@
 
 <div class="menu" id="menu">
   <a href="index.html">Home</a>
-  <a href="index.html#services">Services</a>
+  <a href="services.html">Prices</a>
   <a href="index.html#work">Work</a>
   <a href="book.html">Book Now</a>
   <a href="policies.html">Policies</a>
@@ -121,7 +121,7 @@
     <div class="bk rv">
       <ol class="bk__steps" id="bkSteps">
         <li data-state="live"><b>01</b>Service</li>
-        <li><b>02</b>Stylist</li>
+        <li><b>02</b>Extras</li>
         <li><b>03</b>When</li>
         <li><b>04</b>Details</li>
       </ol>
@@ -134,30 +134,18 @@
         <!-- STEP 1 -->
         <div class="bk__panel is-live" data-step="0">
           <h3 class="d3">Which service?</h3>
-          <p class="bk__hint">Not sure which you need? Pick the closest and add a note at the end — Laura will advise.</p>
-          <div class="opts" id="svcOpts"></div>
+          <p class="bk__hint">Starting prices — they may increase with hair length or service requirements. Full list on the <a class="ln" href="services.html" style="letter-spacing:.08em">price list</a>.</p>
+          <div class="chips" id="bkCats"></div>
+          <div class="svcScroll" id="bkSvcs"></div>
           <p class="field err" id="err0"></p>
         </div>
 
         <!-- STEP 2 -->
         <div class="bk__panel" data-step="1">
-          <h3 class="d3">Which stylist?</h3>
-          <p class="bk__hint">Pricing varies by stylist level. Director Stylist services are priced differently from Graduate Stylist services.</p>
-          <div class="opts">
-            <label class="opt">
-              <input type="radio" name="stylist" value="Director Stylist — Laura N. (D.S.)" required>
-              <span><b>Director Stylist</b><i>Laura N. — the founder's chair. Longest experience in the studio, priced above graduate services.</i></span>
-            </label>
-            <label class="opt">
-              <input type="radio" name="stylist" value="Graduate Stylist">
-              <span><b>Graduate Stylist</b><i>Trained in-house to the same standards and supervised on the floor. More accessible pricing, wider availability.</i></span>
-            </label>
-            <label class="opt">
-              <input type="radio" name="stylist" value="No preference">
-              <span><b>No preference</b><i>Whoever has the earliest slot that suits my dates.</i></span>
-            </label>
-          </div>
-          <p class="field err" id="err1"></p>
+          <h3 class="d3">Anything to add?</h3>
+          <p class="bk__hint" id="addonHint">Optional extras. Skip straight past if you don't need any.</p>
+          <div class="opts" id="bkAddons"></div>
+          <div class="total" id="bkTotal"></div>
         </div>
 
         <!-- STEP 3 -->
@@ -186,6 +174,14 @@
               <input type="date" id="date2" name="Second choice date">
             </div>
             <div class="field">
+              <label for="stylist">Stylist preference</label>
+              <select id="stylist" name="Stylist">
+                <option value="No preference">No preference — earliest slot</option>
+                <option>Director Stylist — Laura N. (D.S.)</option>
+                <option>Graduate Stylist</option>
+              </select>
+            </div>
+            <div class="field field--wide">
               <label for="length">Current hair length</label>
               <select id="length" name="Hair length">
                 <option value="">Select…</option>
@@ -290,7 +286,7 @@
       <p style="max-width:32ch;font-size:.88rem">Your hair is your personality. A loc specialist studio in the heart of Northampton.</p>
     </div>
     <div><h4>Explore</h4><ul>
-      <li><a href="index.html#services">Services</a></li>
+      <li><a href="services.html">Prices</a></li>
       <li><a href="index.html#work">Work</a></li>
       <li><a href="book.html">Book Now</a></li>
       <li><a href="policies.html">Policies</a></li>
@@ -308,6 +304,7 @@
   </div>
 </footer>
 
+<script src="data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

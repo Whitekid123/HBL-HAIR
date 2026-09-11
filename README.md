@@ -10,6 +10,7 @@ no monthly platform fee. Open `index.html` in a browser and it runs.
 | File            | What it is                                                     |
 |-----------------|----------------------------------------------------------------|
 | `index.html`    | Home — hero, studio, services, process, portfolio, reviews, visit |
+| `services.html` | Full price list — 64 services, searchable and filterable        |
 | `book.html`     | Appointments — stylist tiers and the four-step booking form     |
 | `policies.html` | Full salon policies with sticky section navigation              |
 | `styles.css`    | All styling. Colours and fonts are variables at the top         |
@@ -30,15 +31,35 @@ no monthly platform fee. Open `index.html` in a browser and it runs.
 new category by adding a matching `<button class="chip" data-f="yourcat">` in
 the portfolio section of `index.html`. There is no limit on photo count.
 
+## Prices
+
+Every price lives in **`data.js`** and nowhere else. Edit it there and the price
+list page, the home page and the booking form all update together.
+
+```js
+{ name: "Retwist (palm roll, no style)", mins: 60, price: 70, addons: true },
+```
+
+- `mins` — duration in minutes, formatted automatically (`90` → "1 hr 30 min")
+- `price` — starting price in £
+- `note` — optional small print shown under the name
+- `addons` — `true` if the loc add-ons (ACV detox, dye, wash, highlights) apply
+
+To add a service, add a line. To change a price, change one number. To add a
+whole category, copy an existing block in `MENU` and give it a new `id`.
+
+64 services across 9 categories are already in, taken from the studio's live
+booking page.
+
 ## Booking — built into this site
 
 `book.html` carries its own four-step booking flow. Nothing is embedded from
 anywhere else and clients never leave the site:
 
-1. **Service** — generated from the `SERVICES` list at the top of `script.js`
-2. **Stylist** — Director (Laura) / Graduate / no preference
-3. **When** — first and second choice dates, time-of-day preference, hair length
-4. **Details** — name, mobile, email, notes, with a summary of their choices
+1. **Service** — category chips, then the real priced menu from `data.js`
+2. **Extras** — loc add-ons, with a live running total that updates as they tick
+3. **When** — first and second choice dates, time preference, stylist, hair length
+4. **Details** — name, mobile, email, notes, with a full summary and estimate
 
 Every step validates before it will advance, dates can't be set in the past,
 and the final screen makes clear this is a **request**, not a confirmed booking —
@@ -68,9 +89,6 @@ this front end.
 
 ## Still to fill in
 
-- **Prices.** Services currently read "See price / at booking" because the real
-  prices weren't available when this was built. To show them on the page, edit
-  the `.srv__p` values in `index.html`.
 - **Reviews.** The three quotes on the home page are placeholders. Replace them
   with real client reviews in the testimonials section of `index.html`.
 - **Instagram handle.** Links currently point at `instagram.com/hairbylauran` —

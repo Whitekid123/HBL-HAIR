@@ -5,7 +5,9 @@
    Everything under "ENGINE" is the animation code.
    ══════════════════════════════════════════════════════════ */
 
-/* ── 1. PORTFOLIO ──────────────────────────────────────────
+/* Prices and the service menu live in data.js — edit that file.
+
+   ── 1. PORTFOLIO ──────────────────────────────────────────
    Drop a photo into /images, then add one line here.
    cat: locs | twists | studio   (drives the filter chips)   */
 const GALLERY = [
@@ -14,20 +16,6 @@ const GALLERY = [
   { src: "images/work-twists-side.jpg",  cat: "twists", alt: "Long two-strand twists, side profile" },
   { src: "images/studio-front.jpg",      cat: "studio", alt: "HBL Hair Studio, College Street Mews" },
   { src: "images/laura-outside.jpg",     cat: "studio", alt: "Laura N. outside the studio" },
-];
-
-/* ── 2. BOOKING SERVICES (book.html) ───────────────────────
-   These become the choices in step one of the booking form.
-   Add, remove or rename freely — the form rebuilds itself.   */
-const SERVICES = [
-  { name: "Locs Maintenance",        desc: "Retwist, palm roll or interlock, cleaned up and styled." },
-  { name: "Starter Locs",            desc: "Comb coils or two-strand starters, parted to an even grid." },
-  { name: "Two-Strand Twists",       desc: "A defined protective style for natural hair." },
-  { name: "Loc Styling",             desc: "Barrel rolls, pin-ups and braided loc styles." },
-  { name: "Braids & Cornrows",       desc: "Straight-backs, patterns and feed-ins, with or without added hair." },
-  { name: "Wash, Blow-Dry & Removal",desc: "Book alongside your main service or on its own." },
-  { name: "Colour (natural tones)",  desc: "From £20. Please call 07479 412516 before booking colour." },
-  { name: "Not sure yet",            desc: "Describe what you want in the notes and Laura will advise." },
 ];
 
 /* Where appointment requests go if the WhatsApp button is used. */
@@ -287,72 +275,191 @@ function initQuotes() {
   play();
 }
 
+/* ── Price list page ─────────────────────────────────────── */
+function initPriceList() {
+  const out = $("#menuOut");
+  if (!out || typeof MENU === "undefined") return;
+
+  out.innerHTML = MENU.map(c => `
+    <section class="catBlock rv" id="${c.id}">
+      <div class="catHead">
+        <div>
+          ${c.tier ? `<span class="tier">${c.tier}</span>` : ""}
+          <h2 class="d3">${c.name}</h2>
+          ${c.blurb ? `<p>${c.blurb}</p>` : ""}
+        </div>
+        <span class="from">from ${fmtPrice(cheapest(c))}</span>
+      </div>
+      ${c.items.map(i => `
+        <article class="priceRow" data-find="${(c.name + " " + (c.tier || "") + " " + i.name).toLowerCase()}">
+          <div>
+            <h3>${i.name}</h3>
+            ${i.note ? `<p class="note">${i.note}</p>` : ""}
+          </div>
+          <span class="dur">${fmtMins(i.mins)}</span>
+          <span class="amt">${fmtPrice(i.price)}</span>
+        </article>`).join("")}
+    </section>`).join("");
+
+  $("#addonOut").innerHTML = ADDONS.map(a =>
+    `<li><b>${a.name}</b><span>+${fmtPrice(a.price)}</span></li>`).join("");
+
+  // Category filter
+  const chips = $("#catChips");
+  chips.innerHTML = `<button class="chip" data-c="all" aria-pressed="true">All</button>` +
+    MENU.map(c => `<button class="chip" data-c="${c.id}" aria-pressed="false">${c.name}${c.tier ? " · " + (c.tier.includes("Laura") ? "Laura" : "Graduate") : ""}</button>`).join("");
+
+  let cat = "all", q = "";
+  const apply = () => {
+    let hits = 0;
+    $$(".catBlock", out).forEach(block => {
+      const inCat = cat === "all" || block.id === cat;
+      let shown = 0;
+      $$(".priceRow", block).forEach(row => {
+        const match = inCat && (!q || row.dataset.find.includes(q));
+        row.hidden = !match;
+        if (match) shown++;
+      });
+      block.hidden = shown === 0;
+      hits += shown;
+    });
+    $("#noHits").hidden = hits > 0;
+  };
+  chips.addEventListener("click", e => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    $$(".chip", chips).forEach(c => c.setAttribute("aria-pressed", String(c === b)));
+    cat = b.dataset.c;
+    apply();
+  });
+  const srch = $("#srch");
+  srch.addEventListener("input", () => { q = srch.value.trim().toLowerCase(); apply(); });
+}
+
 /* ── Booking flow ────────────────────────────────────────── */
 function initBooking() {
   const form = $("#bkForm");
-  if (!form) return;
+  if (!form || typeof MENU === "undefined") return;
 
-  // Step one options are generated from the SERVICES list above
-  $("#svcOpts").innerHTML = SERVICES.map((sv, i) => `
+  /* Step 1 — category chips + service list, both built from the menu */
+  const cats = $("#bkCats"), svcs = $("#bkSvcs");
+  cats.innerHTML = MENU.map((c, i) =>
+    `<button type="button" class="chip" data-c="${c.id}" aria-pressed="${i === 0}">${c.name}${c.tier ? " · " + (c.tier.includes("Laura") ? "Laura" : "Graduate") : ""}</button>`).join("");
+
+  const paint = (id) => {
+    const c = MENU.find(x => x.id === id);
+    svcs.innerHTML = c.items.map(i => `
+      <label class="pick">
+        <input type="radio" name="Service" value="${i.name} — ${catLabel(c)}"
+               data-price="${i.price}" data-mins="${i.mins}" data-addons="${i.addons ? 1 : 0}">
+        <span>
+          <b>${i.name}</b>
+          <em class="amt">${fmtPrice(i.price)}</em>
+          <em class="dur">${fmtMins(i.mins)}</em>
+          ${i.note ? `<em class="note">${i.note}</em>` : ""}
+        </span>
+      </label>`).join("");
+    svcs.scrollTop = 0;
+  };
+  paint(MENU[0].id);
+  cats.addEventListener("click", e => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    $$(".chip", cats).forEach(c => c.setAttribute("aria-pressed", String(c === b)));
+    paint(b.dataset.c);
+  });
+
+  /* Step 2 — add-ons */
+  $("#bkAddons").innerHTML = ADDONS.map(a => `
     <label class="opt">
-      <input type="radio" name="Service" value="${sv.name}"${i === 0 ? " required" : ""}>
-      <span><b>${sv.name}</b><i>${sv.desc}</i></span>
+      <input type="checkbox" name="Add-ons" value="${a.name}" data-price="${a.price}" data-mins="${a.mins}">
+      <span><b>${a.name}</b><i>+${fmtPrice(a.price)}${a.mins ? " · " + fmtMins(a.mins) : ""}</i></span>
     </label>`).join("");
+
+  const chosen = () => form.querySelector('input[name="Service"]:checked');
+  const picked = () => [...form.querySelectorAll('input[name="Add-ons"]:checked')];
+
+  function tally() {
+    const sv = chosen();
+    if (!sv) return { price: 0, mins: 0, list: [] };
+    let price = +sv.dataset.price, mins = +sv.dataset.mins;
+    const list = picked().map(a => { price += +a.dataset.price; mins += +a.dataset.mins; return a.value; });
+    return { price, mins, list };
+  }
+  function paintTotal() {
+    const t = tally();
+    $("#bkTotal").innerHTML =
+      `<span class="lbl">Estimated total</span>
+       <span class="fig">${fmtPrice(t.price)}<small>${fmtMins(t.mins)} · starting price</small></span>`;
+  }
+  form.addEventListener("change", paintTotal);
 
   const panels = $$(".bk__panel", form);
   const steps  = $$("#bkSteps li");
   const back   = $("#bkBack"), next = $("#bkNext"), send = $("#bkSend");
-  const LAST   = panels.length - 2;           // last input step (before the "done" panel)
+  const LAST   = panels.length - 2;
   let step = 0;
 
-  // Dates: no past days, and none more than a year out
   const d1 = $("#date1"), d2 = $("#date2");
   const today = new Date(), max = new Date();
   max.setFullYear(max.getFullYear() + 1);
   [d1, d2].forEach(d => { if (d) { d.min = today.toISOString().slice(0, 10); d.max = max.toISOString().slice(0, 10); } });
 
+  const val = (n) => {
+    const el = form.elements[n];
+    if (!el) return "";
+    if (el instanceof RadioNodeList || (el.length && !("value" in el))) {
+      return ([...el].find(r => r.checked) || {}).value || "";
+    }
+    return el.value || "";
+  };
+
   const render = () => {
     panels.forEach((p, i) => p.classList.toggle("is-live", i === step));
     steps.forEach((s, i) => s.dataset.state = i === step ? "live" : (i < step ? "done" : ""));
     back.disabled = step === 0;
-    next.hidden   = step >= LAST;
-    send.hidden   = step !== LAST;
+    next.hidden = step >= LAST;
+    send.hidden = step !== LAST;
     $("#bkNav").hidden = step > LAST;
+    if (step === 1) {
+      const sv = chosen();
+      const allowed = sv && sv.dataset.addons === "1";
+      $("#addonHint").textContent = allowed
+        ? "Optional extras for loc appointments. Skip straight past if you don't need any."
+        : "No extras apply to this service — continue to choose your date.";
+      $$("#bkAddons .opt").forEach(o => { o.hidden = !allowed; });
+      paintTotal();
+    }
     if (step === LAST) buildSummary();
     const top = $(".bk").getBoundingClientRect().top + scrollY - 110;
     if (scrollY > top) scrollTo({ top, behavior: REDUCED ? "auto" : "smooth" });
   };
 
-  const val = (n) => {
-    const el = form.elements[n];
-    if (!el) return "";
-    return el.length && !el.value ? ([...el].find(r => r.checked) || {}).value || "" : el.value;
-  };
-
   function buildSummary() {
+    const t = tally();
     const rows = [
       ["Service", val("Service")],
-      ["Stylist", val("stylist")],
+      ["Extras", t.list.length ? t.list.join(", ") : "None"],
       ["First choice", val("First choice date") + (val("Preferred time") ? " · " + val("Preferred time") : "")],
     ];
     if (val("Second choice date")) rows.push(["Second choice", val("Second choice date")]);
+    if (val("Stylist")) rows.push(["Stylist", val("Stylist")]);
+    rows.push(["Estimate", `${fmtPrice(t.price)} · ${fmtMins(t.mins)}`]);
     $("#bkSummary").innerHTML = "<dl>" +
       rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || "—"}</dd>`).join("") + "</dl>";
   }
 
-  // Validate only the fields on the current panel
   function validate() {
     const panel = panels[step];
     const err = $("#err" + step);
     if (err) err.textContent = "";
     $$(".field", panel).forEach(f => f.classList.remove("is-bad"));
 
-    if (step === 0 && !val("Service"))  { err.textContent = "Please choose a service to continue."; return false; }
-    if (step === 1 && !val("stylist"))  { err.textContent = "Please choose a stylist to continue."; return false; }
+    if (step === 0 && !chosen()) { err.textContent = "Please choose a service to continue."; return false; }
 
     let ok = true;
     $$("input[required], select[required], textarea[required]", panel).forEach(el => {
-      if (el.type === "radio") return;
+      if (el.type === "radio" || el.type === "checkbox") return;
       const field = el.closest(".field");
       const msg = field && $(".err", field);
       if (!el.checkValidity()) {
@@ -368,17 +475,19 @@ function initBooking() {
   next.addEventListener("click", () => { if (validate()) { step = Math.min(LAST, step + 1); render(); } });
   back.addEventListener("click", () => { step = Math.max(0, step - 1); render(); });
 
-  // Jump straight to a stylist when arriving from the tier cards
   $$('[data-tier]').forEach(a => a.addEventListener("click", () => {
-    const r = [...form.elements.stylist].find(x => x.value === a.dataset.tier);
-    if (r) r.checked = true;
+    const sel = form.elements["Stylist"];
+    if (sel) sel.value = a.dataset.tier;
   }));
 
   function whatsappMessage() {
+    const t = tally();
     return encodeURIComponent(
       "Hi HBL, I'd like to request an appointment.\n\n" +
       `Service: ${val("Service")}\n` +
-      `Stylist: ${val("stylist")}\n` +
+      (t.list.length ? `Extras: ${t.list.join(", ")}\n` : "") +
+      `Estimate: ${fmtPrice(t.price)} (${fmtMins(t.mins)})\n` +
+      `Stylist: ${val("Stylist")}\n` +
       `First choice: ${val("First choice date")} ${val("Preferred time")}\n` +
       (val("Second choice date") ? `Second choice: ${val("Second choice date")}\n` : "") +
       (val("Hair length") ? `Hair length: ${val("Hair length")}\n` : "") +
@@ -390,13 +499,9 @@ function initBooking() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validate()) return;
-
     $("#waLink").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage()}`;
     step = LAST + 1;
     render();
-
-    // Post to the host's form handler (Netlify Forms). If the site is hosted
-    // somewhere without one, the WhatsApp button above is the reliable route.
     fetch(form.getAttribute("action") || "/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -446,6 +551,7 @@ function start() {
   started = true;
   const yr = $("#yr"); if (yr) yr.textContent = new Date().getFullYear();
   initGallery();
+  initPriceList();
   initBooking();
   observeReveals();
   revealMasks();

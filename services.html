@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Price List | HBL — Hair By Laura N.</title>
+<meta name="description" content="Full price list for HBL Hair Studio, Northampton — loc maintenance, starter locs, braids, natural hair styles, sew-ins, wigs and treatments.">
+<meta name="theme-color" content="#fdfaf7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="images/logo-light.jpg">
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+<div class="prog" id="prog"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-d" id="curD"><span>View</span></div>
+
+<header class="nav is-solid" id="nav">
+  <a class="brand" href="index.html"><b>HBL</b><i>Hair By Laura N.</i></a>
+  <nav class="nav__mid">
+    <a href="index.html">Home</a>
+    <a href="services.html" aria-current="page">Prices</a>
+    <a href="index.html#work">Work</a>
+    <a href="book.html">Book</a>
+    <a href="policies.html">Policies</a>
+  </nav>
+  <div class="nav__end">
+    <a class="btn btn--fill btn--sm" href="book.html">Book Now</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Prices</a>
+  <a href="index.html#work">Work</a>
+  <a href="book.html">Book Now</a>
+  <a href="policies.html">Policies</a>
+  <div class="menu__foot">
+    <span>6 College Street Mews, NN1 2QF</span>
+    <a href="tel:+447479412516">07479 412516</a>
+  </div>
+</div>
+
+<main>
+
+<section class="sec" style="padding-top:clamp(9rem,17vw,13rem);padding-bottom:clamp(2.5rem,5vw,4rem)">
+  <div class="wrap">
+    <p class="kicker rv">Price list</p>
+    <h1 class="d1"><span class="msk"><span>Every service,</span></span><span class="msk"><span>every <em class="it">price</em>.</span></span></h1>
+    <p class="lede rv rv-d2" style="margin-top:2rem">All prices listed are starting prices and may increase depending on hair length or service requirements. Pricing varies by stylist level — Director Stylist services are priced differently from Graduate Stylist services.</p>
+    <div class="priceTools rv rv-d3">
+      <label class="srch">
+        <span class="vh">Search services</span>
+        <input type="search" id="srch" placeholder="Search — retwist, braids, wig…" autocomplete="off">
+      </label>
+      <div class="chips" id="catChips"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div id="menuOut"></div>
+    <p class="noHits" id="noHits" hidden>No services match that search.</p>
+
+    <div class="addonBox rv">
+      <h3 class="d3">Add to a loc appointment</h3>
+      <p class="lede">Optional extras that can be added to loc maintenance services when you book.</p>
+      <ul class="addonList" id="addonOut"></ul>
+    </div>
+
+    <div class="notice rv">
+      <b>Colouring.</b> Colour services are limited to natural tones and start from £20 — black, honey brown / brown and other primary colours. Please call <a class="ln" href="tel:+447479412516" style="letter-spacing:.08em">07479 412516</a> before booking any colour, dye or highlight service.
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band__bg" data-parallax="0.12"><img src="images/studio-front-evening.jpg" alt=""></div>
+  <div class="wrap">
+    <p class="kicker kicker--c rv">6 College Street Mews · NN1 2QF</p>
+    <h2 class="d2 rv rv-d1">Found the one?</h2>
+    <a class="btn btn--fill rv rv-d2" href="book.html">Request your appointment</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__grid">
+    <div>
+      <a class="brand" href="index.html" style="margin-bottom:1.5rem"><b>HBL</b><i>Hair By Laura N.</i></a>
+      <p style="max-width:32ch;font-size:.9rem">Your hair is your personality. A loc specialist studio in the heart of Northampton.</p>
+    </div>
+    <div><h4>Explore</h4><ul>
+      <li><a href="services.html">Prices</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="book.html">Book Now</a></li>
+      <li><a href="policies.html">Policies</a></li>
+    </ul></div>
+    <div><h4>Visit</h4><address>6 College Street Mews<br>Northampton<br>NN1 2QF</address></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="tel:+447479412516">07479 412516</a></li>
+      <li><a href="https://wa.me/447479412516" target="_blank" rel="noopener">WhatsApp (message only)</a></li>
+      <li><a href="https://instagram.com/hairbylauran" target="_blank" rel="noopener">Instagram</a></li>
+    </ul></div>
+  </div>
+  <div class="foot__bar">
+    <p>&copy; <span id="yr"></span> HAIRBYLAURAN LTD</p>
+    <p>Northampton, United Kingdom</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
